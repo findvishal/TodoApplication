@@ -22,15 +22,13 @@ import java.util.Locale;
  */
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 
-    // Constant for date format
-    private static final String DATE_FORMAT = "dd/MM/yyy";
+     private static final String DATE_FORMAT = "dd/MM/yyy";
 
-    // Member variable to handle item clicks
     final private ItemClickListener mItemClickListener;
-    // Class variables for the List that holds task data and the Context
+
     private List<TaskEntry> mTaskEntries;
     private Context mContext;
-    // Date formatter
+
     private SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
 
     /**
@@ -66,7 +64,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
      */
     @Override
     public void onBindViewHolder(TaskViewHolder holder, int position) {
-        // Determine the values of the wanted data
+
         TaskEntry taskEntry = mTaskEntries.get(position);
         String description = taskEntry.getDescription();
         int priority = taskEntry.getPriority();
@@ -76,20 +74,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         holder.taskDescriptionView.setText(description);
         holder.updatedAtView.setText(updatedAt);
 
-        // Programmatically set the text and color for the priority TextView
-        String priorityString = "" + priority; // converts int to String
+        String priorityString = "" + priority;
         holder.priorityView.setText(priorityString);
 
         GradientDrawable priorityCircle = (GradientDrawable) holder.priorityView.getBackground();
-        // Get the appropriate background color based on the priority
         int priorityColor = getPriorityColor(priority);
         priorityCircle.setColor(priorityColor);
     }
 
-    /*
-    Helper method for selecting the correct priority circle color.
-    P1 = red, P2 = orange, P3 = yellow
-    */
     private int getPriorityColor(int priority) {
         int priorityColor = 0;
 

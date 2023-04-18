@@ -36,7 +36,7 @@ import com.example.todoapplication.database.TaskContract;
  */
 public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapter.TaskViewHolder> {
 
-    // Class variables for the Cursor that holds task data and the Context
+
     private Cursor mCursor;
     private Context mContext;
 
@@ -75,39 +75,30 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
      */
     @Override
     public void onBindViewHolder(TaskViewHolder holder, int position) {
-
-        // Indices for the _id, description, and priority columns
         int idIndex = mCursor.getColumnIndex(TaskContract.TaskEntry._ID);
         int descriptionIndex = mCursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_DESCRIPTION);
         int priorityIndex = mCursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_PRIORITY);
 
-        mCursor.moveToPosition(position); // get to the right location in the cursor
+        mCursor.moveToPosition(position);
 
-        // Determine the values of the wanted data
         final int id = mCursor.getInt(idIndex);
         String description = mCursor.getString(descriptionIndex);
         int priority = mCursor.getInt(priorityIndex);
 
-        //Set values
         holder.itemView.setTag(id);
         holder.taskDescriptionView.setText(description);
 
-        // Programmatically set the text and color for the priority TextView
-        String priorityString = "" + priority; // converts int to String
+
+        String priorityString = "" + priority;
         holder.priorityView.setText(priorityString);
 
         GradientDrawable priorityCircle = (GradientDrawable) holder.priorityView.getBackground();
-        // Get the appropriate background color based on the priority
+
         int priorityColor = getPriorityColor(priority);
         priorityCircle.setColor(priorityColor);
 
     }
 
-
-    /*
-    Helper method for selecting the correct priority circle color.
-    P1 = red, P2 = orange, P3 = yellow
-    */
     private int getPriorityColor(int priority) {
         int priorityColor = 0;
 
@@ -141,14 +132,14 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
      * with a newly updated Cursor (Cursor c) that is passed in.
      */
     public Cursor swapCursor(Cursor c) {
-        // check if this cursor is the same as the previous cursor (mCursor)
+
         if (mCursor == c) {
-            return null; // bc nothing has changed
+            return null;
         }
         Cursor temp = mCursor;
-        this.mCursor = c; // new cursor value assigned
+        this.mCursor = c;
 
-        //check if this is a valid cursor, then update the cursor
+
         if (c != null) {
             this.notifyDataSetChanged();
         }
@@ -156,10 +147,8 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
     }
 
 
-    // Inner class for creating ViewHolders
     class TaskViewHolder extends RecyclerView.ViewHolder {
 
-        // Class variables for the task description and priority TextViews
         TextView taskDescriptionView;
         TextView priorityView;
 

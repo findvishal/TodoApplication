@@ -15,7 +15,6 @@ import java.util.List;
 
 public class MainViewModel extends AndroidViewModel {
 
-    // Constant for logging
     private static final String TAG = MainViewModel.class.getSimpleName();
 
     private LiveData<List<TaskEntry>> tasks;
@@ -24,7 +23,6 @@ public class MainViewModel extends AndroidViewModel {
         super(application);
         AppDatabase database = AppDatabase.getInstance(this.getApplication());
         Log.d(TAG, "Actively retrieving the tasks from the DataBase");
-        //tasks = database.taskDao().loadAllTasks();
         tasksRepository = new TasksRepository(database);
         tasks = tasksRepository.getloadAllTasks();
     }
